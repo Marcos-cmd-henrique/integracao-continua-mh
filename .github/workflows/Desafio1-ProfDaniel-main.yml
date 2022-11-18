@@ -1,0 +1,35 @@
+name: Desafio Back-End 
+
+on: 
+  push: 
+     branches:
+        - 'main'
+     paths:
+     - 'back-end/**' 
+  
+jobs: 
+  build-Teste: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 
+      - name: Set up JDK 11 
+        uses: actions/setup-java@v3
+        with: 
+          java-version: '11' 
+          distribution: 'zulu' 
+      - name: Test
+        working-directory: back-end/
+        run: mvn --activate-profiles prod package 
+        
+  build-create-Package-JAR: 
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3 
+      - name: Set up JDK 11 
+        uses: actions/setup-java@v3
+        with: 
+          java-version: '11' 
+          distribution: 'zulu' 
+      - name: Package 
+        working-directory: back-end/
+        run: mvn --activate-profiles prod -DskipTests package 
