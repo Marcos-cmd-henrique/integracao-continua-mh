@@ -7,7 +7,7 @@ jobs:
 
   ci:
     name: CI workflow Main 
-    uses: ./.github/workflows/ci-backend-main.yml 
+    uses: ./.github/workflows/main.yml 
     
   deploy: 
     needs: ci 
