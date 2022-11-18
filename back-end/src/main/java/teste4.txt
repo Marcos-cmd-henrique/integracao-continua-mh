@@ -1,0 +1,2 @@
+teste4 dentro do checkout teste4.
+vamos ver se vai ter o merge automatico.
