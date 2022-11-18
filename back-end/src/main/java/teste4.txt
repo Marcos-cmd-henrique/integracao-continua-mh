@@ -1,3 +1,7 @@
 teste4 dentro do checkout teste4.
+<<<<<<< HEAD
 vamos ver se vai ter o merge automatico.
 Ainda nãi subiu. Verificando. Checkout na main para enviar.
+=======
+vamos ver se vai ter o merge automatico.
+>>>>>>> teste4
