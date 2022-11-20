@@ -18,7 +18,7 @@ public class FiltroCors {
         corsConfig.setAllowCredentials(true);
         corsConfig.setAllowedOrigins(
             Arrays.asList(
-                "https://sgcm-MarcosHenrique.railway.app")
+                "https://sgcm-MarcosHenrique.up.railway.app")
         );
         corsConfig.setAllowedMethods(Arrays.asList("*"));
         corsConfig.setAllowedHeaders(Arrays.asList("*"));
