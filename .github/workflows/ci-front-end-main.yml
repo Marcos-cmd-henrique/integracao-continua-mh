@@ -1,0 +1,50 @@
+name: CI Front-end Deploy
+
+on:
+  workflow_dispatch: 
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'front-end/**'  
+  pull_request:
+    paths:
+      - 'front-end/**'      
+jobs:
+  deploy:
+    runs-on: ubuntu-latest 
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16   
+      - name: Install cliente Angular CLI
+        run: npm install -g @angular/cli
+      - name: Install cliente Railway
+        run: npm install -g @railway/cli        
+      - name: Cache node modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: front-end/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-        
+      - name: Install
+        working-directory: front-end/
+        run: npm install 
+      - name: executar testes
+        working-directory: front-end/
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - name: executar build
+        working-directory: front-end/
+        run: npm run build --prod
+      - name: Deploy
+        working-directory: front-end/dist/sgcmapp
+        run: railway up --detach --service sgcm-MarcosHenrique-F
+        env:
+           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }} 
